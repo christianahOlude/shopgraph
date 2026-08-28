@@ -525,18 +525,15 @@ Displays the returned recommendations in a responsive product grid.
 
 ## Recommendation Page
 
-Add a screenshot of the recommendation interface here:
-
 ```text
-![ShopGraph Recommendation Page](./screenshots/recommendations.png)
+![ShopGraph Recommendation Page](./screenshots/recommendation.png)
 ```
 
 ## Recommendation Results
 
-Add a screenshot showing the returned product recommendations here:
 
 ```text
-![ShopGraph Recommendation Results](./screenshots/results.png)
+![ShopGraph Recommendation Results](./screenshots/result.png)
 ```
 
 ---
