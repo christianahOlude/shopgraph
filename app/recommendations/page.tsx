@@ -88,7 +88,7 @@ export default function RecommendationsPage() {
                         type="text"
                         value={customerId}
                         onChange={(event) => setCustomerId(event.target.value)}
-                        placeholder="Enter customer ID e.g. C001"
+                        placeholder="Enter customer ID (e.g. C001)"
                         className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                     />
 
