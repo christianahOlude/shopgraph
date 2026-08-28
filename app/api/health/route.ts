@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { driver } from "@/lib/neo4j";
+import { getDriver } from "@/lib/neo4j";
 
 export async function GET() {
+    const driver = getDriver();
+
     try {
         await driver.verifyConnectivity();
 
@@ -19,5 +21,7 @@ export async function GET() {
             },
             { status: 500 },
         );
+    } finally {
+        await driver.close();
     }
 }
