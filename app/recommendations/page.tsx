@@ -30,16 +30,24 @@ export default function RecommendationsPage() {
                     `/api/recommendations?customerId=${searchCustomer}`
                 );
 
-                if (!response.ok) {
-                    throw new Error("Failed to fetch recommendations");
-                }
-
                 const data = await response.json();
 
-                setRecommendations(data.recommendations);
+                if (!response.ok) {
+                    throw new Error(
+                        data.error || "Failed to fetch recommendations"
+                    );
+                }
+
+                setRecommendations(data.recommendations ?? []);
             } catch (error) {
-                console.error(error);
-                setError("Unable to load recommendations. Please try again.");
+                console.error("Recommendation fetch failed:", error);
+
+                setError(
+                    error instanceof Error
+                        ? error.message
+                        : "Unable to load recommendations. Please try again."
+                );
+
                 setRecommendations([]);
             } finally {
                 setLoading(false);
@@ -75,8 +83,8 @@ export default function RecommendationsPage() {
                     </h1>
 
                     <p className="mt-2 max-w-2xl text-gray-600">
-                        Discover products based on the purchasing patterns of customers
-                        with similar interests.
+                        Discover products based on the purchasing patterns of
+                        customers with similar interests.
                     </p>
                 </header>
 
@@ -87,7 +95,9 @@ export default function RecommendationsPage() {
                     <input
                         type="text"
                         value={customerId}
-                        onChange={(event) => setCustomerId(event.target.value)}
+                        onChange={(event) =>
+                            setCustomerId(event.target.value)
+                        }
                         placeholder="Enter customer ID (e.g. C001)"
                         className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                     />
@@ -103,7 +113,8 @@ export default function RecommendationsPage() {
                 {loading && (
                     <div className="rounded-xl bg-white p-12 text-center shadow-sm">
                         <p className="text-gray-500">
-                            Finding recommendations for customer {searchCustomer}...
+                            Finding recommendations for customer{" "}
+                            {searchCustomer}...
                         </p>
                     </div>
                 )}
@@ -134,13 +145,17 @@ export default function RecommendationsPage() {
                             </h2>
 
                             <p className="mt-1 text-sm text-gray-500">
-                                Based on similar customers&apos; purchase history.
+                                Based on similar customers&apos; purchase
+                                history.
                             </p>
                         </div>
 
                         <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                             {recommendations.map((product) => (
-                                <ProductCard key={product.id} product={product} />
+                                <ProductCard
+                                    key={product.id}
+                                    product={product}
+                                />
                             ))}
                         </section>
                     </>
